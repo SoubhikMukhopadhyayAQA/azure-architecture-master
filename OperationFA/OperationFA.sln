@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueTrigger", "QueueTrigger\QueueTrigger.csproj", "{170DF20E-C6D8-4A98-85A6-DE215E43D202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueueTrigger", "QueueTrigger\QueueTrigger.csproj", "{170DF20E-C6D8-4A98-85A6-DE215E43D202}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobTrigger", "BlobTrigger\BlobTrigger.csproj", "{13C01687-D164-4776-89F1-E5E6507FC57F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlobTrigger", "BlobTrigger\BlobTrigger.csproj", "{13C01687-D164-4776-89F1-E5E6507FC57F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataEncrypt", "DataEncrypt\DataEncrypt.csproj", "{EB0AFC4E-5A47-4BB1-A609-839C3878996D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileZipOperation", "FileZipOperation\FileZipOperation.csproj", "{99F74070-FC3B-4A78-AB7B-E0937414F46A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{13C01687-D164-4776-89F1-E5E6507FC57F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13C01687-D164-4776-89F1-E5E6507FC57F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13C01687-D164-4776-89F1-E5E6507FC57F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB0AFC4E-5A47-4BB1-A609-839C3878996D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB0AFC4E-5A47-4BB1-A609-839C3878996D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB0AFC4E-5A47-4BB1-A609-839C3878996D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB0AFC4E-5A47-4BB1-A609-839C3878996D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99F74070-FC3B-4A78-AB7B-E0937414F46A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99F74070-FC3B-4A78-AB7B-E0937414F46A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99F74070-FC3B-4A78-AB7B-E0937414F46A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99F74070-FC3B-4A78-AB7B-E0937414F46A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
