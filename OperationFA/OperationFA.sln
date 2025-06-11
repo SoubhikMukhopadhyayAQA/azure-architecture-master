@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataEncrypt", "DataEncrypt\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileZipOperation", "FileZipOperation\FileZipOperation.csproj", "{99F74070-FC3B-4A78-AB7B-E0937414F46A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{D57EDC7A-1C60-4BED-9A39-96F3FBCA2613}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{D57EDC7A-1C60-4BED-9A39-96F3FBCA2613}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpTrigger", "HttpTrigger\HttpTrigger.csproj", "{24B1DCB4-F28D-42EB-9B08-8F578A315DB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{D57EDC7A-1C60-4BED-9A39-96F3FBCA2613}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D57EDC7A-1C60-4BED-9A39-96F3FBCA2613}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D57EDC7A-1C60-4BED-9A39-96F3FBCA2613}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24B1DCB4-F28D-42EB-9B08-8F578A315DB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24B1DCB4-F28D-42EB-9B08-8F578A315DB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24B1DCB4-F28D-42EB-9B08-8F578A315DB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24B1DCB4-F28D-42EB-9B08-8F578A315DB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
