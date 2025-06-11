@@ -4,67 +4,77 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Azure.Storage.Blobs;
 using Azure.Storage.Sas;
+using System;
 
-namespace HttpTrigger;
-
-public class BlobSASTokenGenByContainerSAS
+namespace HttpTrigger
 {
-    private readonly ILogger<BlobSASTokenGenByContainerSAS> _logger;
-
-    public BlobSASTokenGenByContainerSAS(ILogger<BlobSASTokenGenByContainerSAS> logger)
+    public class BlobSASTokenGenByContainerSAS
     {
-        _logger = logger;
-    }
+        private readonly ILogger<BlobSASTokenGenByContainerSAS> _logger;
 
-    [Function("BlobSASTokenGenByContainerSAS")]
-    public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)]
-            HttpRequest req, ILogger log)
-    {
-        try
+        public BlobSASTokenGenByContainerSAS(ILogger<BlobSASTokenGenByContainerSAS> logger)
         {
-            string token = req.Headers["containerSasToken"];
-
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(token);
-            log.LogInformation("TEST0.1");
-            string containerSasToken = System.Convert.ToBase64String(plainTextBytes);
-            log.LogInformation("TEST0.2");
-
-            string blobName = req.Headers["blobName"];
-            string containerName = req.Headers["containerName"];
-            string blobServiceURL = req.Headers["blobServiceURL"];
-            string storageAccountNAME = req.Headers["storageAccountNAME"];
-            string storageAccountKEY = req.Headers["storageAccountKEY"];
-
-            log.LogInformation("TEST1");
-
-            BlobServiceClient blobServiceClient = new BlobServiceClient(new Uri(blobServiceURL), new Azure.Storage.StorageSharedKeyCredential(storageAccountNAME, storageAccountKEY));
-
-            log.LogInformation("TEST2");
-            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
-            log.LogInformation("TEST3");
-            BlobSasBuilder blobSasBuilder = new BlobSasBuilder()
-            {
-                BlobContainerName = containerClient.Name,
-                BlobName = blobName,
-                Resource = "b",
-                StartsOn = DateTime.UtcNow.AddMinutes(-5),
-                ExpiresOn = DateTime.UtcNow.AddHours(1)
-            };
-            log.LogInformation("TEST4");
-            blobSasBuilder.SetPermissions(BlobSasPermissions.Read);
-            log.LogInformation("TEST5");
-            string blobSasToken = blobSasBuilder.ToSasQueryParameters(new Azure.Storage.StorageSharedKeyCredential(storageAccountNAME, containerSasToken)).ToString();
-            log.LogInformation("TEST6");
-            return new OkObjectResult(blobSasToken);
-
-
-
+            _logger = logger;
         }
-        catch (Exception ex)
+
+        [Function("BlobSASTokenGenByContainerSAS")]
+        public static async Task<IActionResult> Run(
+                [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)]
+                HttpRequest req, ILogger log)
         {
-            log.LogError(ex, "Error generating Blob SAS token");
-            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            try
+            {
+                // Read necessary info from headers
+                string blobName = req.Headers["blobName"];
+                string containerName = req.Headers["containerName"];
+                string blobServiceURL = req.Headers["blobServiceURL"];
+
+                if (string.IsNullOrEmpty(blobName) || string.IsNullOrEmpty(containerName) || string.IsNullOrEmpty(blobServiceURL))
+                {
+                    return new BadRequestObjectResult("Missing required header(s): blobName, containerName, or blobServiceURL.");
+                }
+
+                // Read storage account credentials from environment variables
+                string storageAccountNAME = Environment.GetEnvironmentVariable("STORAGE_ACCOUNT_NAME");
+                string storageAccountKEY = Environment.GetEnvironmentVariable("STORAGE_ACCOUNT_KEY");
+
+                if (string.IsNullOrEmpty(storageAccountNAME) || string.IsNullOrEmpty(storageAccountKEY))
+                {
+                    log.LogError("Storage account credentials are not configured in environment variables.");
+                    return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                }
+
+                log.LogInformation("Creating BlobServiceClient...");
+
+                var credential = new Azure.Storage.StorageSharedKeyCredential(storageAccountNAME, storageAccountKEY);
+                BlobServiceClient blobServiceClient = new BlobServiceClient(new Uri(blobServiceURL), credential);
+
+                BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+
+                log.LogInformation("Building SAS token...");
+
+                BlobSasBuilder blobSasBuilder = new BlobSasBuilder()
+                {
+                    BlobContainerName = containerClient.Name,
+                    BlobName = blobName,
+                    Resource = "b",  // blob
+                    StartsOn = DateTimeOffset.UtcNow.AddMinutes(-5),
+                    ExpiresOn = DateTimeOffset.UtcNow.AddHours(1)
+                };
+
+                blobSasBuilder.SetPermissions(BlobSasPermissions.Read);
+
+                string blobSasToken = blobSasBuilder.ToSasQueryParameters(credential).ToString();
+
+                log.LogInformation("SAS token generated successfully.");
+
+                return new OkObjectResult(blobSasToken);
+            }
+            catch (Exception ex)
+            {
+                log.LogError(ex, "Error generating Blob SAS token");
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }
