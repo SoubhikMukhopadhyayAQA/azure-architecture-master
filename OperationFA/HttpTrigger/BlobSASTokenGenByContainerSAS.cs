@@ -39,7 +39,6 @@ public class BlobSASTokenGenByContainerSAS
             log.LogInformation("TEST1");
 
             BlobServiceClient blobServiceClient = new BlobServiceClient(new Uri(blobServiceURL), new Azure.Storage.StorageSharedKeyCredential(storageAccountNAME, storageAccountKEY));
-            //BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=sgspocstorage;AccountKey=6kcVOp1dac2/KDO5gqZdzmkcbf++RpGxS9ylQGIMeOk7974aNcXUYctzT/OCzvhagYHdo2F0udS2+AStEIFZ2g==;EndpointSuffix=core.windows.net");
 
             log.LogInformation("TEST2");
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
