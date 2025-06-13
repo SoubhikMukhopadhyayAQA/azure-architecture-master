@@ -6,3 +6,5 @@
 /.vs
 /OperationFA/WebApp/bin/Debug/net8.0
 /OperationFA/WebApp/obj
+/OperationFA
+/OperationFA/EventHubTrigger/EventHubTrigger.csproj
