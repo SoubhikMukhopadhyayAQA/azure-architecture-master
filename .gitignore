@@ -8,3 +8,4 @@
 /OperationFA/WebApp/obj
 /OperationFA
 /OperationFA/EventHubTrigger/EventHubTrigger.csproj
+/OperationFA/DotNetAzureServicesCall/Services/ServiceInterface/IBlobService.cs
