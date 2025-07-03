@@ -70,5 +70,41 @@ namespace DotNetAzureServicesCall.Services
                 return (false, null);
             }
         }
+        public async Task CheckBlobExistsInSubdirectoriesAndDelete(string connectionString, string containerName, string directoryPath, string blobPrefix)
+        {
+            try
+            {
+                directoryPath = Path.Combine(directoryPath, DateTime.UtcNow.ToString("MM-dd-yyyy"));
+
+                BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
+                BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+
+                await foreach (BlobItem blobItem in containerClient.GetBlobsAsync(prefix: directoryPath + "/" + blobPrefix))
+                {
+                    if (!string.IsNullOrEmpty(blobItem.Name))
+                    {
+                        BlobClient blobClient = containerClient.GetBlobClient(blobItem.Name);
+                        if (await blobClient.ExistsAsync())
+                        {
+                            await blobClient.DeleteAsync();
+                            Console.WriteLine($"Deleted blob: {blobItem.Name}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Blob does not exist: {blobItem.Name}");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error: blob name is empty");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error during process: {ex.Message}");
+                throw;
+            }
+        }
     }
 }

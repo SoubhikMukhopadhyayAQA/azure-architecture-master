@@ -10,5 +10,6 @@ namespace DotNetAzureServicesCall.Services.ServiceInterface
     {
         bool ValidateBlobContainerExists(string connectionString, string containerName);
         (bool, string) ValidateBlobExistsInSubdirectories(string connectionString, string containerName, string directoryPath, string blobPrefix);
+        Task CheckBlobExistsInSubdirectoriesAndDelete(string connectionString, string containerName, string directoryPath, string blobPrefix);
     }
 }
