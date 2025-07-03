@@ -1,6 +1,8 @@
 ﻿using DotNetAzureServicesCall.Services.ServiceInterface;
 using JetBrains.Annotations;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
+using Xunit;
 
 namespace DotNetAzureServicesCall.Services
 {
@@ -8,10 +10,15 @@ namespace DotNetAzureServicesCall.Services
     public class AzureSqlDbService : IAzureSqlDbService
     {
         private readonly string _connectionString;
+        private readonly IFilePathProvider _filePathProvider;
+        private readonly string _validTestDataSubFolder = "Int181";
         // ReSharper disable once ConvertToPrimaryConstructor
-        public AzureSqlDbService(string connectionString)
+        public AzureSqlDbService(string connectionString, IFilePathProvider filePathProvider)
         {
             _connectionString = connectionString;
+            _filePathProvider =
+                filePathProvider ??
+                throw new ArgumentNullException(nameof(filePathProvider));
         }
 
         public bool CheckIfTableExists(string tableName)
@@ -135,6 +142,85 @@ namespace DotNetAzureServicesCall.Services
 
             var result = command.ExecuteScalar();
             return Convert.ToInt32(result) > 0;
+        }
+        private string LoadSqlQueryFromFile(string fileName)
+        {
+            try
+            {
+                string sourceFilePath = _filePathProvider.GetFilePath(_validTestDataSubFolder, fileName);
+                Assert.True(File.Exists(sourceFilePath),
+                    $"Expected file '{fileName}' does not exist at path '{sourceFilePath}'.");
+
+                return File.ReadAllText(sourceFilePath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error loading SQL file: " + ex.Message);
+                return string.Empty;
+            }
+        }
+        private bool IsValidTableName(string tableName)
+        {
+            return Regex.IsMatch(tableName, @"^[a-zA-Z0-9_]+$");
+        }
+        public bool InsertDataIntoTblAppointmentUpdate(int dynamicNumber)
+        {
+            var query = LoadSqlQueryFromFile("InsertDataInAppointmentUpdateQuery.sql");
+            query = query.Replace("@dynamicNumber", dynamicNumber.ToString());
+
+            try
+            {
+                using var connection = new SqlConnection(_connectionString);
+                connection.Open();
+
+                using var command = new SqlCommand(query, connection);
+                int rowsAffected = command.ExecuteNonQuery();
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error during insert: " + ex.Message);
+                return false;
+            }
+        }
+        public bool InserSpcialCharactertDataIntoTblAppointmentUpdate(int dynamicNumber)
+        {
+            var query = LoadSqlQueryFromFile("InsertSpecialCharacterDataInAppointmentUpdateQuery.sql");
+            query = query.Replace("@dynamicNumber", dynamicNumber.ToString());
+
+            try
+            {
+                using var connection = new SqlConnection(_connectionString);
+                connection.Open();
+
+                using var command = new SqlCommand(query, connection);
+                int rowsAffected = command.ExecuteNonQuery();
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error during insert: " + ex.Message);
+                return false;
+            }
+        }
+        public bool InsertNullDataIntoTblAppointmentUpdate()
+        {
+            var query = LoadSqlQueryFromFile("InsertNullDataInAppointmentUpdateQuery.sql");
+
+            try
+            {
+                using var connection = new SqlConnection(_connectionString);
+                connection.Open();
+
+                using var command = new SqlCommand(query, connection);
+                int rowsAffected = command.ExecuteNonQuery();
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error during insert: " + ex.Message);
+                return false;
+            }
         }
     }
 }
