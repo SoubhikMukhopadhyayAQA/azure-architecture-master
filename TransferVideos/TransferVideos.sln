@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransferVideos", "TransferVideos\TransferVideos.csproj", "{B4EC9A60-8D6F-43F5-A6C1-AA5966BC4F53}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B4EC9A60-8D6F-43F5-A6C1-AA5966BC4F53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4EC9A60-8D6F-43F5-A6C1-AA5966BC4F53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4EC9A60-8D6F-43F5-A6C1-AA5966BC4F53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4EC9A60-8D6F-43F5-A6C1-AA5966BC4F53}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BAD5C466-C0DD-4A05-B63B-F53C91253C50}
+	EndGlobalSection
+EndGlobal
