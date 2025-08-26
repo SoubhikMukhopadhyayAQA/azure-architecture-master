@@ -7,7 +7,7 @@ namespace BlobTrigger;
 
 public class BlobTriggerFa
 {
-    private readonly ILogger<BlobTriggerFa> _logger;
+    private readonly ILogger<BlobTriggerFa> _logger; 
 
     public BlobTriggerFa(ILogger<BlobTriggerFa> logger)
     {
