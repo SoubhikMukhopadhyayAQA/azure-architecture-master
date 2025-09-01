@@ -69,6 +69,32 @@ namespace Lab01
             {
                 Console.WriteLine(ex.Message);
             }
+
+
+            var a = 10;
+            var b2 = 3;
+            var c = 7;
+
+            Console.WriteLine(a+b2);
+            Console.WriteLine(a/b2);
+            Console.WriteLine((float)a/(float)b2);
+
+            Console.WriteLine(a+b2 *c);
+            Console.WriteLine((a + b2) * c);
+
+
+
+            Console.WriteLine( a < b2);
+            Console.WriteLine(a != b2);
+
+            Console.WriteLine(!(a != b2)); // ~ a == b2 which is false
+            Console.WriteLine( c > b2 && b2 < a);
+
+
+            Console.WriteLine(c > b2 || b2 == a);
+            /*
+                summary:
+            */
         }
     }
 }
