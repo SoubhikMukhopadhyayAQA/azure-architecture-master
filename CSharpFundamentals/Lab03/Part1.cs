@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace Lab03
+﻿namespace Lab03
 {
     public class Person
     {
