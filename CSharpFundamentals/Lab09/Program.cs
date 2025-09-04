@@ -4,6 +4,40 @@
 	{
         public static void Main(string[] args)
         {
+
+            // Jagged Array
+            int[][] jagged = new int[3][];
+            jagged[0] = new int[2] { 1, 2 };
+            jagged[1] = new int[3] { 3, 4, 5 };
+            jagged[2] = new int[4] { 6, 7, 8, 9 };
+            Console.WriteLine("Jagged Array");
+            foreach (var item in jagged)
+            {
+                foreach (var i in item)
+                {
+                    Console.Write(i + " ");
+                }
+                Console.WriteLine();
+            }
+            // Rectangular Array
+            int[,] rectangular = new int[3, 4]
+            {
+                {1,2,3,4 },
+                {5,6,7,8 },
+                {9,10,11,12 }
+            };
+            Console.WriteLine("Rectangular Array");
+            for (int i = 0; i < rectangular.GetLength(0); i++)
+            {
+                for (int j = 0; j < rectangular.GetLength(1); j++)
+                {
+                    Console.Write(rectangular[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+
+
+
             var number = new [] { 3,7,9,2,14,6 };
 
             // -------------------------------------------------Length
