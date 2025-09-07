@@ -25,6 +25,35 @@
 
             lastName = lastName.Replace("opadhyay", "erjee");
             Console.WriteLine("Last Name: '{0}'", lastName);
+
+
+            if (string.IsNullOrEmpty(" ".Trim()))
+                Console.WriteLine("Invalid");
+
+            if (string.IsNullOrWhiteSpace(" "))
+                Console.WriteLine("Invalid");
+
+            var str = "25";
+            var age = Convert.ToByte(str);
+            Console.WriteLine(age);
+
+            float price = 29.95f;
+            Console.WriteLine(price.ToString("C"));
+
+
+
+            var sentence = "This is going to be a really really really long text";
+            const int maxLength = 25;
+
+
+
+
+
+
+
+
+            var summary = StringUtility.SummarizeText(sentence, maxLength);
+            Console.WriteLine(summary);
         }
     }
 }
