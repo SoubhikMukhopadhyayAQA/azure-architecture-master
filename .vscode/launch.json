@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Attach to .NET Functions",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:azureFunctions.pickProcess}"
+        },
+        {
+            "name": "Debug FileUnzipFA",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/FileUnzipFASol/FileUnzipFA/bin/Debug/net6.0/FileUnzipFA.dll",
+            "args": [],
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Debug OperationFA",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/OperationFA/HttpTrigger/bin/Debug/net6.0/HttpTrigger.dll",
+            "args": [],
+            "console": "internalConsole",
+            "stopAtEntry": false
+        }
+    ]
+}

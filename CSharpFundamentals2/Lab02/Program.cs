@@ -5,7 +5,7 @@
         public int Id;
         public string Name;
     }
-	public class Program
+    public class Program
     {
         public static void Main(string[] args)
         {

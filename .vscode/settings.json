@@ -1,0 +1,11 @@
+{
+    "azureFunctions.deploySubpath": ".",
+    "azureFunctions.projectLanguage": "C#",
+    "azureFunctions.projectRuntime": "~4",
+    "debug.internalConsoleOptions": "neverOpen",
+    "dotnet.defaultSolution": "FileUnzipFASol/FileUnzipFASol.sln",
+    "editor.formatOnSave": true,
+    "omnisharp.enableRoslynAnalyzers": true,
+    "omnisharp.enableEditorConfigSupport": true,
+    "csharp.format.enable": true
+}
