@@ -9,6 +9,7 @@
 
             foreach (var number in smallests)
                 Console.WriteLine(number);
+
         }
 
         public static List<int> GetSmallests(List<int> list, int count)
